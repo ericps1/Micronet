@@ -1,0 +1,77 @@
+Start testing: Apr 22 18:55 EDT
+----------------------------------------------------------
+3/4 Testing: qa_FSK_Rx
+3/4 Test: qa_FSK_Rx
+Command: "/bin/sh" "/home/user/gnuradio/gr-custom/build/python/qa_FSK_Rx_test.sh"
+Directory: /home/user/gnuradio/gr-custom/build/python
+"qa_FSK_Rx" start time: Apr 22 18:55 EDT
+Output:
+----------------------------------------------------------
+
+
+Rising edge detected.
+Start bits successfully detected. Packet number: 0
+Max = 0.933333
+Min = 0
+Symbol boundaries = 0.155556 0.466667 0.777778 TEST
+Symbol Count: 0  Sample Count: 7  Bit: 0.33
+0.155556
+0.466667
+0.777778
+Symbol = 1
+Symbol Count: 1  Sample Count: 7  Bit: 0.67
+0.155556
+0.466667
+0.777778
+Symbol = 2
+Symbol Count: 2  Sample Count: 7  Bit: 1
+0.155556
+0.466667
+0.777778
+Symbol = 3
+Symbol Count: 3  Sample Count: 7  Bit: 0.33
+0.155556
+0.466667
+0.777778
+Symbol = 1
+
+
+Rising edge detected.
+Start bits successfully detected. Packet number: 0
+Max = 0.933333
+Min = 0
+Symbol boundaries = 0.155556 0.466667 0.777778 TEST
+Symbol Count: 0  Sample Count: 7  Bit: 0.33
+0.155556
+0.466667
+0.777778
+Symbol = 1
+Symbol Count: 1  Sample Count: 7  Bit: 0.67
+0.155556
+0.466667
+0.777778
+Symbol = 2
+Symbol Count: 2  Sample Count: 7  Bit: 1
+0.155556
+0.466667
+0.777778
+Symbol = 3
+Symbol Count: 3  Sample Count: 7  Bit: 0.33
+0.155556
+0.466667
+0.777778
+Symbol = 1
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+<end of output>
+Test time =   0.44 sec
+----------------------------------------------------------
+Test Passed.
+"qa_FSK_Rx" end time: Apr 22 18:55 EDT
+"qa_FSK_Rx" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 22 18:55 EDT

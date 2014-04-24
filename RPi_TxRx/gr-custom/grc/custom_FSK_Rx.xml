@@ -1,0 +1,30 @@
+<block>
+  <name>Fsk rx</name>
+  <key>custom_FSK_Rx</key>
+  <category>CUSTOM</category>
+  <import>import custom</import>
+  <make>custom.FSK_Rx($bits_per_sym, $samp_per_sym, $word_length)</make>
+  <param>
+    <name>Bits_per_sym</name>
+    <key>bits_per_sym</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Samp_per_sym</name>
+    <key>samp_per_sym</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Word_length</name>
+    <key>word_length</key>
+    <type>int</type>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+</block>

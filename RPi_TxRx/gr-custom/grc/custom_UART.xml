@@ -1,0 +1,25 @@
+<block>
+  <name>Uart</name>
+  <key>custom_UART</key>
+  <category>CUSTOM</category>
+  <import>import custom</import>
+  <make>custom.UART($samp_per_sym, $word_length)</make>
+  <param>
+    <name>Samp_per_sym</name>
+    <key>samp_per_sym</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Word_length</name>
+    <key>word_length</key>
+    <type>int</type>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+</block>

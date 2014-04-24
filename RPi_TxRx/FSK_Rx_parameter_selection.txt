@@ -1,0 +1,18 @@
+RTL Sample Rate:
+
+	The rtl sample rate should be the result of some integer division of its reference frequency, 28.8 MHz. So 2.4/1.2 MHz works well for instance.
+
+Decimation:
+
+	Decimation is not necessary for the receiver to work properly, but it will reduce the load on the CPU.
+
+Samples Per Symbol:
+
+	The number of samples per symbol needs to be equal to the RTL's sample rate divided by any decimation in the signal chain. In general the 		
+	sampling point for each symbol will be more accurate the larger the number of samples per symbol because it will detect a rising edge more 	
+	quickly. The absolute minimum samples per symbol should be 3.
+
+Filtering:
+
+	Any low pass filters need to have a pass band that extends at least to one half the frequency spacing (carrier to carrier) plus one half the 
+	data rate.

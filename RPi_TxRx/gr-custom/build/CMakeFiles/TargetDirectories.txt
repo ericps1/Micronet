@@ -1,0 +1,9 @@
+/home/user/gnuradio/gr-custom/build/swig/CMakeFiles/_custom_swig.dir
+/home/user/gnuradio/gr-custom/build/swig/CMakeFiles/_custom_swig_doc_tag.dir
+/home/user/gnuradio/gr-custom/build/swig/CMakeFiles/_custom_swig_swig_tag.dir
+/home/user/gnuradio/gr-custom/build/lib/CMakeFiles/gnuradio-custom.dir
+/home/user/gnuradio/gr-custom/build/apps/CMakeFiles/pygen_apps_9a6dd.dir
+/home/user/gnuradio/gr-custom/build/python/CMakeFiles/pygen_python_8e3ce.dir
+/home/user/gnuradio/gr-custom/build/swig/CMakeFiles/pygen_swig_be16c.dir
+/home/user/gnuradio/gr-custom/build/lib/CMakeFiles/test-custom.dir
+/home/user/gnuradio/gr-custom/build/CMakeFiles/uninstall.dir

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="dir_134d3d2f5abd118d918588db0a1d3050" kind="dir">
+    <compoundname>/home/eric/grc_custom/gr-custom/include/custom/</compoundname>
+    <innerfile refid="api_8h">api.h</innerfile>
+    <innerfile refid="UART_8h">UART.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/eric/grc_custom/gr-custom/include/custom/"/>
+  </compounddef>
+</doxygen>

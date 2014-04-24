@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="dir_a3ca7b79c7b48fe1b43a93db6071b923" kind="dir">
+    <compoundname>/home/user/gnuradio/gr-custom/include/custom/</compoundname>
+    <innerfile refid="api_8h">api.h</innerfile>
+    <innerfile refid="FSK__Rx_8h">FSK_Rx.h</innerfile>
+    <innerfile refid="UART_8h">UART.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/user/gnuradio/gr-custom/include/custom/"/>
+  </compounddef>
+</doxygen>

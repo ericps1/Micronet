@@ -12,20 +12,20 @@ sdr0 = RtlSdr()
 
 # Settings
 # avg_method should be 'running' or 'chunk'. Running will be more computationally expensive.
-f_min = 850e6
-f_max = 900e6
-f_cal = 200e6
+f_min = 88e6
+f_max = 106e6
+f_cal = 609.5e6
 gain = 25
-sample_rate = 3000e3
-total_bins = 16384
-avg = 5
+sample_rate = 1000e3
+total_bins = 8192
+avg = 500
 avg_method = 'chunk' 			
 cal = 'on'
-cal_iterations = 100
+cal_iterations = 200
 
 # Other variables
 bw = f_max-f_min
-max_fft_length = 16384
+max_fft_length = 8192
 delete = 0
 iterations = int(bw/sample_rate)
 if iterations == 0:
@@ -82,7 +82,7 @@ def form(x,p):
 ax.get_xaxis().set_major_formatter(tckr.FuncFormatter(form))
 xlabel('Frequency (MHz)')
 ylabel('Relative power (dB)')
-axis([f_min,f_max,-110,-40])
+axis([f_min,f_max,-65,-40])
 f_step = sample_rate/(fft_length/decim)
 
 # Scan Spectrum
@@ -101,9 +101,9 @@ while(1):
 			for y in range(0, avg):
 				samples = sdr0.read_samples(fft_length)
 				if y == 0:
-					FFT = abs(fft(window*samples,fft_length))/(sample_rate*fft_length*response)
+					FFT = abs(fft(window*samples,fft_length))/(sample_rate)*(1/response)
 				else:
-					FFT = FFT + abs(fft(window*samples,fft_length))/(sample_rate*fft_length*response)
+					FFT = FFT + abs(fft(window*samples,fft_length))/(sample_rate)*(1/response)
 			sdr0.center_freq = f + sample_rate
 			FFT = FFT/avg
 			FFT = np.fft.fftshift(FFT)
@@ -118,7 +118,7 @@ while(1):
 
 		if avg_method == 'running':
 			samples = sdr0.read_samples(fft_length)
-			FFT = 10*log10(abs(fft(window*samples,fft_length))/(sample_rate*fft_length*response))
+			FFT = 10*log10(abs(fft(window*samples,fft_length))/(sample_rate)*(1/response))
 			if decim > 1:
 				FFT = signal.decimate(FFT, decim,1)
 			if y == 0:
@@ -141,3 +141,5 @@ while(1):
 	if y < avg:
 		y = y + 1
 	delete = 1
+
+

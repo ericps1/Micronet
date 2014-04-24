@@ -1,0 +1,17 @@
+gr-custom installation instructions:
+
+$ cp -r <dropbox>/SDR/GNU Radio/gr-custom <local gnuradio dir>/
+$ cd <local gnuradio dir>/gr-custom/build
+$ cmake ../
+
+There may or may not be an error after running cmake that is 
+generated due to a mismatch in directories. If so, edit the
+CMakeCache.txt file in the /gr-custom directory as suggested 
+and replace all instances of the directory that is mentioned
+in the error.
+
+$ make
+$ sudo make install
+$ sudo ldconfig
+
+Make sure to reload blocks if you already have GRC running.
