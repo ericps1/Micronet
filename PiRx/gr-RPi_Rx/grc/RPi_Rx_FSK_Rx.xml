@@ -1,0 +1,30 @@
+<block>
+  <name>Fsk rx</name>
+  <key>RPi_Rx_FSK_Rx</key>
+  <category>RPI_RX</category>
+  <import>import RPi_Rx</import>
+  <make>RPi_Rx.FSK_Rx($bits_per_sym, $packet_length, $samp_per_sym)</make>
+  <param>
+    <name>Bits_per_sym</name>
+    <key>bits_per_sym</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Packet_length</name>
+    <key>packet_length</key>
+    <type>int</type>
+  </param>
+  <param>
+    <name>Samp_per_sym</name>
+    <key>samp_per_sym</key>
+    <type>int</type>
+  </param>
+  <sink>
+    <name>in</name>
+    <type>float</type>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>float</type>
+  </source>
+</block>

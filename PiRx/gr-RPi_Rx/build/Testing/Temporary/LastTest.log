@@ -1,0 +1,70 @@
+Start testing: May 02 14:48 EDT
+----------------------------------------------------------
+1/3 Testing: test_RPi_Rx
+1/3 Test: test_RPi_Rx
+Command: "/bin/sh" "/home/user/gnuradio/gr-RPi_Rx/build/lib/test_RPi_Rx_test.sh"
+Directory: /home/user/gnuradio/gr-RPi_Rx/build/lib
+"test_RPi_Rx" start time: May 02 14:48 EDT
+Output:
+----------------------------------------------------------
+
+
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"test_RPi_Rx" end time: May 02 14:48 EDT
+"test_RPi_Rx" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/3 Testing: qa_RPi_Rx
+2/3 Test: qa_RPi_Rx
+Command: "/bin/sh" "/home/user/gnuradio/gr-RPi_Rx/build/python/qa_RPi_Rx_test.sh"
+Directory: /home/user/gnuradio/gr-RPi_Rx/build/python
+"qa_RPi_Rx" start time: May 02 14:48 EDT
+Output:
+----------------------------------------------------------
+
+
+Rising edge detected.
+Start bits successfully detected. 
+Max = 1, Min = -1
+Symbol boundaries = 0
+Set Address: 65 Received Address: 65
+Calculated CRC: 6 Received CRC: 6
+Packet Count: 1
+Extra Header Length: 0
+Function Flags: 11110
+Header: 010000010010000011110110
+Symbols: 01000110
+Received byte in hex: 0x46
+Received byte as a character: F
+
+
+Rising edge detected.
+Start bits successfully detected. 
+Max = 1, Min = -1
+Symbol boundaries = 0
+Set Address: 65 Received Address: 65
+Calculated CRC: 6 Received CRC: 6
+Packet Count: 1
+Extra Header Length: 0
+Function Flags: 11110
+Header: 010000010010000011110110
+Symbols: 01000110
+Received byte in hex: 0x46
+Received byte as a character: F
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+<end of output>
+Test time =   0.32 sec
+----------------------------------------------------------
+Test Passed.
+"qa_RPi_Rx" end time: May 02 14:48 EDT
+"qa_RPi_Rx" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: May 02 14:48 EDT

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.7.6.1">
+  <compounddef id="namespacegr_1_1RPi__Rx" kind="namespace">
+    <compoundname>gr::RPi_Rx</compoundname>
+    <innerclass refid="classgr_1_1RPi__Rx_1_1FSK__Rx" prot="public">gr::RPi_Rx::FSK_Rx</innerclass>
+    <innerclass refid="classgr_1_1RPi__Rx_1_1RPi__Rx" prot="public">gr::RPi_Rx::RPi_Rx</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/user/gnuradio/gr-RPi_Rx/include/RPi_Rx/FSK_Rx.h" line="29"/>
+  </compounddef>
+</doxygen>

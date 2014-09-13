@@ -1,0 +1,9 @@
+/home/user/gnuradio/gr-RPi_Rx/build/swig/CMakeFiles/_RPi_Rx_swig.dir
+/home/user/gnuradio/gr-RPi_Rx/build/swig/CMakeFiles/_RPi_Rx_swig_doc_tag.dir
+/home/user/gnuradio/gr-RPi_Rx/build/swig/CMakeFiles/_RPi_Rx_swig_swig_tag.dir
+/home/user/gnuradio/gr-RPi_Rx/build/lib/CMakeFiles/gnuradio-RPi_Rx.dir
+/home/user/gnuradio/gr-RPi_Rx/build/apps/CMakeFiles/pygen_apps_9a6dd.dir
+/home/user/gnuradio/gr-RPi_Rx/build/python/CMakeFiles/pygen_python_cbc3e.dir
+/home/user/gnuradio/gr-RPi_Rx/build/swig/CMakeFiles/pygen_swig_06e4e.dir
+/home/user/gnuradio/gr-RPi_Rx/build/lib/CMakeFiles/test-RPi_Rx.dir
+/home/user/gnuradio/gr-RPi_Rx/build/CMakeFiles/uninstall.dir

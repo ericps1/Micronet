@@ -1,0 +1,339 @@
+/* -*- c++ -*- */
+/* 
+ * Copyright 2014 <+YOU OR YOUR COMPANY+>.
+ * 
+ * This is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3, or (at your option)
+ * any later version.
+ * 
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this software; see the file COPYING.  If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street,
+ * Boston, MA 02110-1301, USA.
+ */
+
+#ifndef INCLUDED_RPI_RX_RPI_RX_IMPL_H
+#define INCLUDED_RPI_RX_RPI_RX_IMPL_H
+
+#include <RPi_Rx/RPi_Rx.h>
+#include <stdio.h>
+#include <string>
+
+/* SOCKET STUFF START */
+//
+//#include <sys/types.h>
+//#include <sys/socket.h>
+//#include <netinet/in.h>
+//#include <arpa/inet.h>
+//
+//#define PORT 3491
+//#define BACKLOG 10
+//
+//struct sockaddr_in server;
+//struct sockaddr_in dest;
+//int status,socket_fd, client_fd,num;
+//socklen_t size;
+//
+//char buffer[10241];
+//char *buff;
+////  memset(buffer,0,sizeof(buffer));
+//int yes =1;
+//
+/* SOCKET STUFF END */
+
+namespace gr {
+  namespace RPi_Rx {
+
+    class RPi_Rx_impl : public RPi_Rx
+    {
+     private:
+      // Block operation defining variables
+      int d_samp_per_sym;
+      int d_packet_length;
+	  int d_bits_per_sym;
+	  int d_samp_point;
+	  
+	  // Counters
+	  int d_samp_count;
+	  int d_bit_count;
+	  int d_packet_count;
+	  float d_start_1_count;
+	  float d_start_2_count;
+	  
+	  // Flags
+	  int d_start_bit;
+	  int d_rising_edge; 
+	  
+	  // Bit slicing variables
+	  int d_max;
+	  int d_min;	  
+	  float d_boundaries[7];
+	  
+	  // Data storage (one byte)
+	  char d_character;
+	  
+	  // Header variables
+	  int d_header[24];
+	  int d_ex_h_len;
+	  int d_addr;
+	  int d_valid;
+	  int d_function[5]; // {File, GRC output, Hex display, Char display, DSA page}
+	  char d_file_name[31];
+	  
+	  // BER test data
+	  int d_PN[1000];
+	  int d_total_bits;
+	  int d_total_errors;
+
+     public:
+      RPi_Rx_impl(int bits_per_sym, int samp_per_sym, int packet_length, int address);
+      ~RPi_Rx_impl();
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+	  // Block operation defining functions
+	  int samp_per_sym() const { return d_samp_per_sym; }
+	  void set_samp_per_sym(unsigned samp_per_sym) { d_samp_per_sym = samp_per_sym; }
+	  int packet_length() const { return d_packet_length; }
+      void set_packet_length(unsigned len) { d_packet_length = len; }
+      int bits_per_sym() const { return d_bits_per_sym; }
+      void set_bits_per_sym(int b) { d_bits_per_sym = b;}
+      int samp_point() const {return d_samp_point;}
+      void set_samp_point(unsigned sp) { d_samp_point = sp; }
+      
+      // Counter functions
+      int samp_count() const { return d_samp_count; }
+      void set_samp_count(unsigned count) { d_samp_count = count; }
+	  int bit_count() const { return d_bit_count; }
+      void set_bit_count(int count) { d_bit_count = count; }
+      int packet_count() const {return d_packet_count;}
+      void set_packet_count(unsigned pc) { d_packet_count = pc; }
+      float start_1_count() const {return d_start_1_count;}
+      void set_start_1_count(float sc) { d_start_1_count = sc; }
+      float start_2_count() const {return d_start_2_count;}
+      void set_start_2_count(float sc) { d_start_2_count = sc; }
+      
+      // Flag functions
+	  int start_bits() const { return d_start_bit; }
+      void set_start_bits(unsigned flag) { d_start_bit = flag; }
+      int rising_edge() const { return d_rising_edge; }
+      void set_rising_edge(unsigned re) { d_rising_edge = re; }      
+      
+      // Symbol slicing functions
+	  int max() const { return d_max; }
+      void set_max(unsigned max) { d_max = max; }
+	  int min() const { return d_min; }
+      void set_min(unsigned min) { d_min = min; }
+	  void boundaries(float A[7]) { 
+	  		for (int i=0; i<7; i++){
+      			A[i] = d_boundaries[i];
+      		}
+	  }
+      void set_boundaries(float b[7]) { 
+      		for (int i=0; i<7; i++){
+      			d_boundaries[i] = b[i];
+      		}      		
+      }
+      
+      // This function routes bits based on the bit count and flags
+      void bit_handle(int bit){
+      		//std::cout << "Bit Number: " << d_bit_count << " = " << bit << std::endl;
+      		if(d_bit_count<23) {
+      			d_header[d_bit_count] = bit; // Save header info
+      			//std::cout << "TEST" << std::endl;
+      		}
+      		if(d_bit_count==23){
+      			d_header[d_bit_count] = bit;
+      			interpret_header(); // Interpret header once received
+      		}
+	  		if(d_bit_count>23 && d_bit_count<24+8*d_ex_h_len && d_valid){ // Interpret any additional header info
+	  			d_character = (d_character << 1) + bit;
+	  			if((d_bit_count+1)%8==0){
+	  				d_file_name[(d_bit_count-24)/8] = d_character;
+	  				//std::cout << d_character;
+	  				//if(d_function[3]) char_disp();
+	  			} 			
+	  		}
+	  		if(d_packet_count==0 && d_function[0] && d_bit_count==23+8*d_ex_h_len && d_valid && d_ex_h_len){
+  				d_file_name[d_ex_h_len] = '\0';
+				std::string file_name = "/home/user/";
+				file_name += d_file_name;
+				FILE* output_file;
+				output_file = fopen(file_name.c_str(),"w");
+				fclose(output_file);
+				//std::cout << "\n\n!!!!!!!\n\n" << file_name << "\n";
+  			}
+	  		
+      		// Payload handle
+      		if(d_bit_count>23+8*d_ex_h_len && d_valid && !d_function[0] && !d_function[1] && !d_function[2] && !d_function[3] && !d_function[4]){
+      			/////////////////////// BER /////////////////////////
+      			d_total_bits += 1;
+      			if(bit != d_PN[d_bit_count-24]){
+      				d_total_errors += 1;
+      				//std:: cout << d_bit_count << "\n";
+      				//std::cout << "Error! Rx = " << bit << " PN = " << d_PN[d_bit_count-24] << "\n";
+      			}
+      			if(d_bit_count==1023){
+      				std::cout << "Total bits: " << d_total_bits 
+      					<< " Total Errors: " << d_total_errors
+      					<< " BER: " << ((float)d_total_errors)/((float)d_total_bits) << "\n";
+      			}
+      			/////////////////////////////////////////////////////
+		  		d_character = (d_character << 1) + bit;
+		  		if((d_bit_count+1)%8==0){			  		
+		  			if(d_function[0]) char_file_write();
+		  			if(d_function[2]) hex_disp();
+		  			if(d_function[3]) char_disp();
+		  			if(d_function[4]){} // Not sure if anything needs to be done here for now
+			  	}
+			}
+      		d_bit_count++;      		
+      }
+	  
+	  // File write functions
+	  void char_file_write()
+		{
+			std::string file_name = "/home/user/";
+			file_name += d_file_name;
+			FILE* output_file;
+			output_file = fopen(file_name.c_str(),"a+");
+		    if(output_file != NULL)
+		    {
+		        //fseek(output_file,0,SEEK_END);
+		        if(d_character)
+		            fprintf(output_file,"%c", d_character);
+		    }
+			fclose(output_file);
+		}
+		
+	  // Display functions
+	  void hex_disp(){
+	  		// Split byte into two 4 bit words
+	  		int i1_hex = (d_character & 0xF0) >> 4;
+	  		int i2_hex = d_character & 0x0F;
+	  		
+	  		// Offset used in conversion from int to char
+	  		int offset_1 = 48;
+	  		int offset_2 = 48;
+	  		if(i1_hex>9) offset_1 = 55;
+	  		if(i2_hex>9) offset_2 = 55;
+	  		char c1_hex = (char) (i1_hex+offset_1);
+	  		char c2_hex = (char) (i2_hex+offset_2);	
+	  		
+	  		std::cout << "\nReceived byte in hex: 0x" << c1_hex << c2_hex << std::endl; 		
+	  }
+	  void char_disp(){
+
+/* SOCKET STUFF */
+//if ((send(client_fd,&d_character, 1,0))== -1) 
+//{
+//    //fprintf(stderr, "Failure Sending Message\n");
+//    //close(client_fd);
+//}
+/* SOCKET STUFF END */
+	  		std::cout << "Received byte as a character: " << d_character << std::endl;
+	  }
+		
+	  // Header functions
+	  void interpret_header(){
+	  		addr_check();
+	  		CRC_Check();
+	  		//d_valid = 1;
+	  		if(d_valid==1){
+	  			d_ex_h_len = 0;
+	  			d_packet_count = 0;
+	  			for(int i=0; i<3; i++){ 
+	  				d_packet_count += d_header[i+8]<<(2-i);
+	  			}
+	  			for(int i=0; i<5; i++){ 
+	  				d_ex_h_len += d_header[i+11]<<(4-i);
+	  				d_function[i] = d_header[i+16];
+	  			}
+	  			//d_ex_h_len = 0;
+	  			std::cout << "Packet Count: " << d_packet_count << std::endl
+	  				<< "Extra Header Length: " << d_ex_h_len << std::endl
+	  				<< "Function Flags: " << d_function[0] << d_function[1] 
+	  				<< d_function[2] << d_function[3] << d_function[4] << std::endl;
+	  		}
+	  		std::cout << "Header: ";
+	  		for(int i=0; i<24; i++) std::cout << d_header[i];
+	  		std::cout << std::endl;	  			
+	  }
+      void addr_check()
+      {
+			int addr_rx = 0;
+			for(int i=0; i<8; i++){ addr_rx += d_header[i]<<(7-i); }
+			
+			std::cout << "Set Address: " << d_addr
+				<< " Received Address: " << addr_rx << "\n";
+				
+            if(addr_rx == d_addr) d_valid = 1;
+            else d_valid = 0;
+
+      }
+      void CRC_Check(){
+			int num=0;
+			int crc_len=3;
+			int poly = 5; // 0b101
+	
+			// Initialize the numerator of the polynomial division
+			for(int i=0; i<crc_len; i++){
+				num += d_header[i]<<i;
+			}
+	
+			// Perform polynomial division
+			for(int i=0; i<24-(2*crc_len); i++){
+				if (num < poly){
+					num = (num<<1) + d_header[i+crc_len];
+				}
+				else{
+					num = (num-poly);
+					if(i!= 24-crc_len){num=num<<1;}
+				}
+			}
+	
+			// Retrieve received crc from header
+			int crc_rx=0;
+			for(int i=0; i<crc_len; i++){
+				crc_rx += d_header[24-crc_len+i]<<(crc_len-i-1);
+			}
+			
+			// Compare calculated to received CRC
+			if(num!=crc_rx){
+				d_valid = 0;
+	  		}
+	  		
+	  		std::cout << "Calculated CRC: " << num << " Received CRC: " << crc_rx << "\n";
+	  }
+      int function(int index){return d_function[index];}
+      void set_function(int func, int index){d_function[index] = func;}
+      int valid(){return d_valid;}
+      void set_valid(int val){d_valid = val;}
+      int ex_h_len(){return d_ex_h_len;}
+      void set_ex_h_len(int len){d_ex_h_len = len;}
+      
+      //////////////// BER /////////////////
+      void set_PN(char c, int index){ d_PN[index] = c; }
+      
+////////////////////////////////////////////////////////////////////////////////////////////
+
+      // Where all the action really happens
+      void forecast (int noutput_items, gr_vector_int &ninput_items_required);
+
+      int general_work(int noutput_items,
+		       gr_vector_int &ninput_items,
+		       gr_vector_const_void_star &input_items,
+		       gr_vector_void_star &output_items);
+    };
+
+  } // namespace RPi_Rx
+} // namespace gr
+
+#endif /* INCLUDED_RPI_RX_RPI_RX_IMPL_H */
+

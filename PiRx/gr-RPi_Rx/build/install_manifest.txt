@@ -1,0 +1,16 @@
+/usr/local/lib/cmake/RPi_Rx/RPi_RxConfig.cmake
+/usr/local/include/RPi_Rx/api.h
+/usr/local/include/RPi_Rx/RPi_Rx.h
+/usr/local/include/RPi_Rx/FSK_Rx.h
+/usr/local/lib/libgnuradio-RPi_Rx.so
+/usr/local/lib/python2.7/dist-packages/RPi_Rx/_RPi_Rx_swig.so
+/usr/local/lib/python2.7/dist-packages/RPi_Rx/RPi_Rx_swig.py
+/usr/local/lib/python2.7/dist-packages/RPi_Rx/RPi_Rx_swig.pyc
+/usr/local/lib/python2.7/dist-packages/RPi_Rx/RPi_Rx_swig.pyo
+/usr/local/include/RPi_Rx/RPi_Rx/swig/RPi_Rx_swig.i
+/usr/local/include/RPi_Rx/RPi_Rx/swig/RPi_Rx_swig_doc.i
+/usr/local/lib/python2.7/dist-packages/RPi_Rx/__init__.py
+/usr/local/lib/python2.7/dist-packages/RPi_Rx/__init__.pyc
+/usr/local/lib/python2.7/dist-packages/RPi_Rx/__init__.pyo
+/usr/local/share/gnuradio/grc/blocks/RPi_Rx_RPi_Rx.xml
+/usr/local/share/gnuradio/grc/blocks/RPi_Rx_FSK_Rx.xml

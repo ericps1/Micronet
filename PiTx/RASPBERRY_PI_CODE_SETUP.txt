@@ -1,0 +1,27 @@
+# execture the follwing commands
+
+# copy the code over
+cd ~/Dropbox/SDR/Code
+scp -r xmit pi@IP_ADDR:/home/pi/.
+# -r means recursively - used to copy whole folders
+# scp is similar to copy but used to copy from one device to another
+
+
+# ssh into the raspberry pi
+ssh pi@IP_ADDR
+cd pitx/
+
+# to remove all .o files and the XMIT program
+make clean 
+
+# to compile
+make
+
+# to run
+sudo ./PITX 
+
+# to run verbose
+sudo ./PITX -v
+
+# get help
+sudo ./PITX -h
